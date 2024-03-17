@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import { getWishlistItems, IWishlist } from "../../../services/wishlist";
+import useWishlistService from "../../../hooks/wishlistService";
+import { IWishlist } from "../../../interfaces/wishlist";
 
-export default function Wishlists() {    
+export default function Wishlists() {   
+    const { wishlistItems } = useWishlistService(); 
     return (
         <>
             <ul>
-                {getWishlistItems().map((wishlist: IWishlist) => (
+                {wishlistItems.map((wishlist: IWishlist) => (
                     <li key={wishlist.id}>
                         <Link
                             to={`/wishlist/${wishlist.id}`}

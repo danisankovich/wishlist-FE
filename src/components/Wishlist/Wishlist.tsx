@@ -1,32 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import { IWishlist, wishlistData } from "../../services/wishlist";
-
-const initialWishlist: IWishlist = {
-    id: '', title: '', private: false, items: []
-}
+import useWishlistService from '../../hooks/wishlistService';
 
 export default function Wishlist() {
-    const { wishlistId } = useParams();
-    const [ wishlist, setWishlist ] = useState<IWishlist>(initialWishlist)
-
-    useEffect(() => {
-        getWishlist()
-    }, [wishlistId])
-
-    function getWishlist(): void {
-        const wishlist = wishlistData.find((wishlist: IWishlist) => wishlist.id === wishlistId)
-        if (wishlist) {
-            console.log(wishlist)
-            setWishlist(wishlist);
-        }
-    }
+    const { currentWishlist } = useWishlistService();
 
     return (
-        <>{wishlist && wishlist.id && <div>
-            <h2>{wishlist.title}</h2>
+        <>{currentWishlist && currentWishlist.id && <div>
+            <h2>{currentWishlist.title}</h2>
             <ul>
-                {wishlist.items.map(item => <li key={item}>{item}</li>)}
+                {currentWishlist.items.map(item => <li key={item}>{item}</li>)}
             </ul>
         </div>
         }
