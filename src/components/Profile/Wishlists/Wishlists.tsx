@@ -3,11 +3,11 @@ import useWishlistService from "../../../hooks/wishlistService";
 import { IWishlist } from "../../../interfaces/wishlist";
 
 export default function Wishlists() {   
-    const { wishlistItems } = useWishlistService(); 
+    const { userDetails } = useWishlistService(); 
     return (
         <>
             <ul>
-                {wishlistItems.map((wishlist: IWishlist) => (
+                {userDetails && userDetails.hasOwnProperty('wishlists') && userDetails.wishlists.map((wishlist: IWishlist) => (
                     <li key={wishlist.id}>
                         <Link
                             to={`/wishlist/${wishlist.id}`}
